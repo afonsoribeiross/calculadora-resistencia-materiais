@@ -9,6 +9,12 @@ def deformacao(delta, comprimento):
 def lei_hooke(modulo_elasticidade, deformacao):
     return modulo_elasticidade * deformacao
 
+def tensao_cisalhamento (forca, area):
+    return forca / area
+
+def fator_seguranca (tensao_ruptura, tensao_aplicada):
+    return tensao_ruptura / tensao_aplicada
+
 print("=== Calculadora de Resistência de Materiais ===")
 print()
 
@@ -30,3 +36,17 @@ print()
 E = float(input("Digite o módulo de elasticidade (Pa): "))
 sigma_hooke = lei_hooke(E, epsilon)
 print(f"Tensão pela Lei de Hooke: {sigma_hooke:.2f} Pa")
+ 
+# Tensão de cisalhamento 
+V = float(input("Digite a força cortante(N): "))
+A = float(input("Digite a área (m²): "))
+tau = tensao_cisalhamento(V, A)
+print(f"Tensão de cisalhamento: {tau:.2f} pa")
+print()
+
+# Fator de segurança
+R = float(input("Digite a tensão de ruptura (Pa): "))
+AP = float(input("Digite a tensão aplicada (Pa): "))
+gama = fator_seguranca(R, AP)
+print(f"Fator de segurança: {gama:.2f}")
+print()
