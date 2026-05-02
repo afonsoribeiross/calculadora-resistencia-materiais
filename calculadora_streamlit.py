@@ -9,7 +9,8 @@ opcao = st.selectbox("Escolha o calculo:", [
     "Deformacao",
     "Tensao de Cisalhamento",
     "Fator de Seguranca",
-    "Lei de Hooke"
+    "Lei de Hooke",
+    "Circulo de Mohr",
 ])
 
 if opcao == "Tensao Normal":
@@ -55,7 +56,36 @@ elif opcao == "Lei de Hooke":
         ax.set_title("Lei de Hooke - Tensao x Deformacao")
         ax.grid(True)
         st.pyplot(fig)
+elif opcao == "Circulo de Mohr":
+    sigma_x = st.number_input("Tensão normal em X (Pa):")
+    sigma_y = st.number_input("Tensão normal em Y (Pa):")
+    tau_xy = st.number_input("Tensão de Cisalhamento (Pa):")
+    if st.button("Calcular"):
+        centro = (sigma_x + sigma_y) / 2
+        raio = (((sigma_x - sigma_y) / 2) ** 2 + tau_xy ** 2) ** 0.5
+        sigma_max = centro + raio
+        sigma_min = centro - raio
+        st.success(f"Tensao principal maxima: {sigma_max:.2f} Pa")
+        st.success(f"Tensao principal minima: {sigma_min:.2f} Pa")
+        st.success(f"Tensao de cisalhamento maxima: {raio:.2f} Pa")
 
+        import numpy as np
+        theta = np.linspace(0, 2 * np.pi, 100)
+        x = centro + raio * np.cos(theta)
+        y = raio * np.sin(theta)
 
-
-
+        fig, ax = plt.subplots()
+        ax.plot(x, y)
+        ax.plot(sigma_x, tau_xy, 'ro', label='Ponto A')
+        ax.plot(sigma_y, -tau_xy, 'bo', label='Ponto B')
+        ax.plot(sigma_max, 0, 'g^', label='Tensao max')
+        ax.plot(sigma_min, 0, 'g^', label='Tensao min')
+        ax.axhline(0, color='black', linewidth=0.5)
+        ax.axvline(0, color='black', linewidth=0.5)
+        ax.set_xlabel("Tensao Normal (Pa)")
+        ax.set_ylabel("Tensao de Cisalhamento (Pa)")
+        ax.set_title("Circulo de Mohr")
+        ax.legend()
+        ax.grid(True)
+        ax.set_aspect('equal')
+        st.pyplot(fig)
