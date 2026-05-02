@@ -25,6 +25,12 @@ def fator_seguranca():
     resultado = R / AP
     label_resultado.config(text=f"Fator de segurança: {resultado:.2f}")
 
+def lei_hooke():
+    E = float(entry1.get())
+    epsilon = float(entry2.get())
+    resultado = E * epsilon
+    label_resultado.config(text=f"Lei de Hooke: {resultado:.2f} Pa")  
+
 def executar_calculo():
     opcao = combo.get()
     if opcao == "Tensão Normal":
@@ -35,6 +41,9 @@ def executar_calculo():
         tensao_cisalhamento()
     elif opcao == "Fator de segurança":
         fator_seguranca()
+    elif opcao == "Lei de Hooke":
+        lei_hooke() 
+
 
 def atualizar_labels(event):
     opcao = combo.get()
@@ -50,6 +59,9 @@ def atualizar_labels(event):
     elif opcao == "Fator de segurança":
         label1.config(text="Digite a tensão de ruptura (Pa):")  
         label2.config(text="Digite a tensão aplicada (Pa):")
+    elif opcao == "Lei de Hooke":
+        label1.config(text="Digite o módulo de elasticidade (pa):")
+        label2.config(text="Digite a deformação")    
 
         
 
@@ -63,7 +75,8 @@ combo = ttk.Combobox(janela, values=[
 "Tensão Normal", 
 "Deformação",
 "Tensão de cisalhamento",
-"Fator de Segurança",
+"Fator de segurança",
+"Lei de Hooke",
 ], width=35)
 combo.current(0)
 combo.pack(pady=5)
