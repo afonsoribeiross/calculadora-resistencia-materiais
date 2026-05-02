@@ -3,6 +3,16 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 st.title("Calculadora de Resistencia dos Materiais")
+st.sidebar.title("Sobre o app")
+st.sidebar.info("Calculadora de Resistencia dos Materiais desenvolvida em Python por Afonso Ribeiro — Estudante de Engenharia Mecanica na UEMA.")
+st.sidebar.markdown("---")
+st.sidebar.markdown("**Calculos disponíveis:**")
+st.sidebar.markdown("- Tensao Normal")
+st.sidebar.markdown("- Deformacao")
+st.sidebar.markdown("- Tensao de Cisalhamento")
+st.sidebar.markdown("- Fator de Seguranca")
+st.sidebar.markdown("- Lei de Hooke")
+st.sidebar.markdown("- Circulo de Mohr")
 
 opcao = st.selectbox("Escolha o calculo:", [
     "Tensao Normal",
@@ -14,6 +24,7 @@ opcao = st.selectbox("Escolha o calculo:", [
 ])
 
 if opcao == "Tensao Normal":
+    st.info("**Tensao Normal** (σ = F/A): Calcula a tensao gerada por uma forca aplicada perpendicularmente a uma secao transversal.")
     F = st.number_input("Forca (N):")
     A = st.number_input("Area (m2):", value=1.0)
     if st.button("Calcular"):
@@ -21,6 +32,7 @@ if opcao == "Tensao Normal":
         st.success(f"Tensao Normal: {resultado:.2f} Pa")
 
 elif opcao == "Deformacao":
+    st.info("**Deformacao** (ε = δ/L): Variacao relativa do comprimento de um material quando submetido a uma forca.")
     delta = st.number_input("Deslocamento (m):")
     L = st.number_input("Comprimento (m):", value=1.0)
     if st.button("Calcular"):
@@ -28,6 +40,7 @@ elif opcao == "Deformacao":
         st.success(f"Deformacao: {resultado:.4f}")
 
 elif opcao == "Tensao de Cisalhamento":
+    st.info("**Tensao de Cisalhamento** (τ = V/A): Tensao gerada por forcas que atuam paralelamente a secao transversal, como um corte.")
     V = st.number_input("Forca cortante (N):")
     A = st.number_input("Area (m2):", value=1.0)
     if st.button("Calcular"):
@@ -35,6 +48,7 @@ elif opcao == "Tensao de Cisalhamento":
         st.success(f"Tensao de Cisalhamento: {resultado:.2f} Pa")
 
 elif opcao == "Fator de Seguranca":
+    st.info("**Fator de Seguranca** (FS = σ_ruptura / σ_aplicada): Indica a margem de seguranca entre a tensao que rompe o material e a tensao real aplicada.")
     R = st.number_input("Tensao de ruptura (Pa):")
     AP = st.number_input("Tensao aplicada (Pa):", value=1.0)
     if st.button("Calcular"):
@@ -42,6 +56,7 @@ elif opcao == "Fator de Seguranca":
         st.success(f"Fator de Seguranca: {resultado:.2f}")
 
 elif opcao == "Lei de Hooke":
+    st.info("**Lei de Hooke** (σ = E x ε): Relacao linear entre tensao e deformacao no regime elastico — quanto maior a deformacao, maior a tensao.")
     E = st.number_input("Modulo de elasticidade (Pa):", value=200000000000.0)
     epsilon = st.number_input("Deformacao maxima:", value=0.01)
     if st.button("Calcular"):
@@ -57,6 +72,7 @@ elif opcao == "Lei de Hooke":
         ax.grid(True)
         st.pyplot(fig)
 elif opcao == "Circulo de Mohr":
+    st.info("**Circulo de Mohr**: Representacao grafica de todos os estados de tensao em diferentes angulos de um ponto de um material.")
     sigma_x = st.number_input("Tensão normal em X (Pa):")
     sigma_y = st.number_input("Tensão normal em Y (Pa):")
     tau_xy = st.number_input("Tensão de Cisalhamento (Pa):")
