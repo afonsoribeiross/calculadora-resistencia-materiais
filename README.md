@@ -14,6 +14,9 @@ Calculadora desenvolvida em Python para resolver fórmulas básicas de Resistên
 2. Execute o arquivo `calculadora_resistencia.py`
 3. Digite os valores solicitados
 
+## Acesse o app online
+https://calculadora-resistencia.streamlit.app   
+
 ## Tecnologias
 - Python 3.x
 
